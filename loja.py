@@ -1,7 +1,9 @@
 import telebot
 from telebot import types
-import os
 import time
+from flask import Flask
+from threading import Thread
+import os
 
 # ==================== CONFIGURAÇÕES ====================
 TOKEN = "8660458553:AAHUWunQoRa8cysxS8DETtwJJ6VHfGTAtLI"                    # Token do @BotFather
@@ -18,14 +20,14 @@ PRODUTOS = {
             "nome": "Sabonete todo dia",
             "preco": 34.90,
             "descricao": "Sabonete em Barra Puro Vegetal Tododia Alecrim e Sálvia",
-            "imagem": "imagens/sabonete-tododia.png"
+            "imagem": "./sabonete-tododia.png"
         },
         {
             "id": "skin2",
             "nome": "Sabonete Sortido",
             "preco": 40.90,
             "descricao": "Sabonete Sortido Puro Vegetal Erva Doce",
-            "imagem": "imagens/sabonete-2.png"
+            "imagem": "./sabonete-2.png"
         },
     ],
     "make": [
@@ -34,14 +36,14 @@ PRODUTOS = {
             "nome": "Base Sérum",
             "preco": 179.90,
             "descricao": "Base Sérum Nude Me Una",
-            "imagem": "imagens/una-1.png"
+            "imagem": "./una-1.png"
         },
         {
             "id": "make2",
             "nome": "Batom Líquido Matte",
             "preco": 19.96,
             "descricao": "Batom Líquido Matte Longa Duração Faces",
-            "imagem": "imagens/deleniador-1.png"
+            "imagem": "./deleniador-1.png"
         },
     ],
     "cabelo": [
@@ -50,7 +52,7 @@ PRODUTOS = {
             "nome": "Shampoo + Condicionador",
             "preco": 69.90,
             "descricao": "Kit Lumina Shampoo e Condicionador Hidratação e Proteção Antipoluição (2 produtos)",
-            "imagem": "imagens/shampoo-1.png"
+            "imagem": "./shampoo-1.png"
         },
     ]
 }
@@ -162,6 +164,11 @@ def falar_atendente(message):
     except:
         bot.send_message(message.chat.id, "Não consegui avisar o atendente agora.")
 
+app = Flask('')
+@app.route('/')
+def home():
+    return "Bot online"
+
 # ==========================================================
 # INICIAR O BOT
 # ==========================================================
@@ -169,6 +176,7 @@ def falar_atendente(message):
 if __name__ == "__main__":
     print("Bot da loja iniciado...")
     print("Pressione Ctrl + C para parar.")
+    Thread(target=lambda: app.run(host='0.0.0.0', port=8080)).start()
     bot.remove_webhook()
     time.sleep(3)
     bot.infinity_polling()
