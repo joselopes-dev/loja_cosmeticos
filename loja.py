@@ -177,6 +177,4 @@ if __name__ == "__main__":
     print("Bot da loja iniciado...")
     print("Pressione Ctrl + C para parar.")
     Thread(target=lambda: app.run(host='0.0.0.0', port=8080)).start()
-    bot.remove_webhook()
-    time.sleep(3)
-    bot.infinity_polling()
+    iniciar_chat()
