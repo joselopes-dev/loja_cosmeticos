@@ -6,7 +6,7 @@ from threading import Thread
 import os
 
 # ==================== CONFIGURAÇÕES ====================
-TOKEN = "8660458553:AAHUWunQoRa8cysxS8DETtwJJ6VHfGTAtLI"                    # Token do @BotFather
+TOKEN = os.environ.get("BOT_TOKEN")                    # Token do @BotFather
 ADMIN_ID = 8937649637                               # ID do atendente
 
 
